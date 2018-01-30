@@ -1,0 +1,13 @@
+mkdir -p /tmp/ipfs-docker-staging
+mkdir -p /tmp/ipfs-docker-data
+
+docker run -d --name ipfs-node 						\
+			-v /tmp/ipfs-docker-staging:/export 	\
+			-v /tmp/ipfs-docker-data:/data/ipfs 	\
+			-p 8080:8080 -p 4001:4001 -p 5001:5001 	\
+			jbenet/go-ipfs:latest
+
+sleep 5
+docker exec ipfs-node /usr/local/bin/ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "GET", "POST", "OPTIONS"]'
+docker exec ipfs-node /usr/local/bin/ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
+docker exec ipfs-node /usr/local/bin/ipfs config --json API.HTTPHeaders.Access-Control-Allow-Credentials '["true"]'

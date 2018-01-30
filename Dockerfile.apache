@@ -1,0 +1,8 @@
+FROM httpd:2.4
+COPY ./html/ /usr/local/apache2/htdocs/
+
+# docker build -t my-apache2 -f Dockerfile.apache .
+# docker run -dit -p 8080:80 --name my-running-app my-apache2
+# docker exec -it my-running-app bash
+
+
